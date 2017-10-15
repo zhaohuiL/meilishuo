@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="css/addnewaddress.css">
+		<title></title>
+	</head>
+
+	<body>
+		<header>
+			<div><img id='back' src="img/sword.png" /></div>
+			<div>收货地址</div>
+			<div id="save">保存</div>
+		</header>
+		<div class="bd">
+			<form>
+				<label>
+            				<input type="text" name="address_name" placeholder="家">
+          				</label>
+				<label>
+            <input type="text" name="consignee"  placeholder="收货人">
+          </label>
+          <label>
+           <input type="text" name="mobile" placeholder="联系电话">
+          </label>
+				<label>
+          <input type="text" name="country"  placeholder="所在国家">
+          </label>
+				<label>
+             <input type="text" name="province" placeholder="所在省份">
+          </label>
+				<label>
+            <input type="text" name="city" placeholder="所在城市">
+          </label>
+				<label>
+           <input type="text" name="district" placeholder="所在地区">
+          </label>
+				<label>
+            <input type="text" name="address"  placeholder="详细地址（必填）">
+          </label>
+
+				<label>
+            <input type="text" name="email" placeholder="邮箱">
+          </label>
+				<label>
+            <input type="text" name="tel" placeholder="电话">
+          </label>
+			</form>
+		</div>
+		<script src="js/jquery-1.12.3.min.js"></script>
+		<script>
+			// var oFont = screen.width / 8;
+			// $('html').css('font-size', oFont + 'px')
+			window.onresize = set;
+			set();
+			function set(){
+				var windowWidth = document.documentElement.clientWidth;
+				// console.log(windowWidth);
+				var fontsize = windowWidth / 8;
+				document.documentElement.style.fontSize = fontsize + "px";
+			}
+		</script>
+		<script>
+			oAdd = document.querySelector('#save');
+			oAdd.onclick = function(){
+				var postobj = $('form').serialize();
+				$.post('http://h6.duchengjiu.top/shop/api_useraddress.php?status=add&token='+localStorage.token,postobj,function(){
+					location.href = 'address.html'
+				})
+			}
+			var oBack = document.querySelector('#back');
+			oBack.addEventListener("touchstart",function(){
+				location.href = 'address.html'
+			})
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="css/orderlist.css" />
+		<title></title>
+		<style>
+		</style>
+	</head>
+	<body>
+		<header>
+			<div id="order"><img   src="img/sword.png" /></div>
+			<div>收银台</div>
+		</header>
+		<section>
+			<div>
+				<div>
+					<span class="tupian"></span>
+					<span>微信支付</span>
+					<span class="touch"></span>
+				</div>
+				<div>
+					<span class="tupian tupian2"></span>
+					<span>支付宝支付</span>
+					<span class="touch"></span>
+				</div>
+				<div>
+					<span class="tupian tupian3"></span>
+					<span>银行卡支付</span>
+					<span class="touch"></span>
+				</div>
+			</div>
+		</section>
+		<footer>
+			<div id="aaa">支付：¥</div>
+			<div>付款</div>
+		</footer>
+		<script src="js/jquery-1.12.3.min.js"></script>
+		<script>
+		window.onresize = set;
+		set();
+		function set(){
+			var windowWidth = document.documentElement.clientWidth;
+			// console.log(windowWidth);
+			var fontsize = windowWidth / 8;
+			document.documentElement.style.fontSize = fontsize + "px";
+		}
+		</script>
+		<script>
+			var oAAA = document.querySelector('#aaa');
+			oAAA.innerHTML += localStorage.sum;
+		</script>
+		<script>
+			var oTouch = document.querySelectorAll('.touch');
+			for(var i = 0; i < oTouch.length; i++){
+				(function(i){
+					oTouch[i].addEventListener("touchstart",function(){
+						for(var j = 0;j < oTouch.length; j++){
+							$(oTouch[j]).attr("style","background:none")
+						}
+						$(oTouch[i]).attr("style","background: url(img/gougou.png);background-size:100% 100%;")
+					})
+
+				})(i)
+			}
+		</script>
+		<script>
+			var oCC = document.querySelector("#order");
+			oCC.addEventListener("touchend",function(){
+				location.href = "index.html";
+			})
+		</script>
+	</body>
+</html>

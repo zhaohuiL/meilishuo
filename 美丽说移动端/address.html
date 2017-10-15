@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="css/address.css">
+		<title></title>
+	</head>
+
+	<body>
+		<header>
+			<div><img id='back' src="img/sword.png" /></div>
+			<div>收货地址</div>
+			<div id="newadd">新增</div>
+		</header>
+		<section class="address">
+			<div>
+				<span class="write1" style="border: none;border-radius: none;"></span>
+			</div>
+			<div class="shu"></div>
+			<div>
+				<span class="write2">
+
+				</span>
+			</div>
+			<div id="moren">默认</div>
+		</section>
+		<section class="less_imp_add">
+
+		</section>
+		<script src="js/jquery-1.12.3.min.js"></script>
+		<script>
+		window.onresize = set;
+		set();
+		function set(){
+			var windowWidth = document.documentElement.clientWidth;
+			// console.log(windowWidth);
+			var fontsize = windowWidth / 8;
+			document.documentElement.style.fontSize = fontsize + "px";
+		}
+		</script>
+		<script>
+			var oClickNum = 0;
+		</script>
+		<script>
+			$.get("http://h6.duchengjiu.top/shop/api_useraddress.php?token="+localStorage.token, {}, function(json) {
+				console.log(json);
+				console.log(typeof json);
+				var data = json.data;
+				var obj = data[data.length-1];
+				//是每一次都添加元素到页面上性能好还是组装好所有的内容之后一次性插入性能好
+				//每次都添加，页面会渲染多次
+				var oAddress = document.querySelector('.address');
+				console.log(oAddress);
+				oAddress.innerHTML +=
+					`<ul>
+	      	<li>收件人 :  ${obj.consignee} &nbsp;&nbsp;&nbsp;&nbsp; ${obj.mobile}</li>
+	      	<li>地址 :  ${obj.address_name}</li>
+	      </ul>`
+			});
+		</script>
+		<script>
+			$.get('http://h6.duchengjiu.top/shop/api_useraddress.php?token='+localStorage.token, {}, function(json) {
+				var data = json.data;
+				var oAddress = document.querySelector('.less_imp_add');
+				for(i = 1; i < data.length; i++) {
+					obj = data[i];
+					oAddress.innerHTML +=
+						`<ul class="weiadd">
+						<div>
+				<span class="write1"></span>
+			</div>
+			<div class="shu"></div>
+			<div>
+				<span class="write2">
+
+				</span>
+			</div>
+			<ul>
+	      	<li>收件人 :  ${obj.consignee} &nbsp;&nbsp;&nbsp;&nbsp; ${obj.mobile}</li>
+	      	<li>地址 :  ${obj.address_name}</li>
+	      	</ul>
+	      </ul>`
+				}
+				var oWrite = document.querySelectorAll('.write1');
+				var oWeiadd = document.querySelectorAll('.weiadd');
+				console.log(console.log(oWeiadd.length))
+				console.log(console.log(oWrite.length))
+				console.log(oWeiadd)
+			console.log(oWrite)
+			for(var i = 0; i < oWeiadd.length ; i++) {
+				(function(i) {
+					oWeiadd[i].addEventListener('touchend',function() {
+						$(oWrite[i+1]).attr("style","background:url('img/gougou.png') no-repeat;background-size: contain;");
+
+					})
+					oWeiadd[i].addEventListener('touchend',function() {
+
+						localStorage.oClickNum = i;
+						location.href = 'ordercheck.html';
+					})
+				})(i)
+			}
+			var oWriteSec = document.querySelectorAll('.write2');
+			console.log(oWriteSec)
+			for(var i = 1; i < oWriteSec.length; i++){
+				(function(i){
+					oWriteSec[i].addEventListener('touchend',function(e){
+						e.stopPropagation();
+
+					},false);
+					oWriteSec[i].addEventListener('touchend',function(e){
+						e.stopPropagation();
+						$.get('http://h6.duchengjiu.top/shop/api_useraddress.php?token='+localStorage.token,{},function(json){
+							var bbCode = json.data[i].address_id;
+							$.get('http://h6.duchengjiu.top/shop/api_useraddress.php?status=delete&token='+localStorage.token,{address_id: bbCode},function(){
+								location.href = 'address.html'
+							})
+						})
+					},false);
+				})(i)
+			}
+			})
+		</script>
+		<script>
+			var oBack = document.querySelector('#back');
+			oBack.onclick = function() {
+				location.href = 'ordercheck.html'
+			}
+			var oNewAdd = document.querySelector('#newadd');
+			oNewAdd.onclick = function() {
+				location.href = 'addnewaddress.html'
+			}
+
+		</script>
+
+	</body>
+
+</html>

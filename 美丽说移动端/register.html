@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/register.css">
+</head>
+<body>
+  <div class="register-header">
+    <a class="back" href="me.html"></a>
+    <span>注册</span>
+    <a class="idx" href="index.html">首页</a>
+  </div>
+  <div class="register">
+    <div class="area">
+      <span>国家与地区</span>
+      <span>中国</span>
+    </div>
+    <div class="register-us" id="registerUs">
+      <span>昵称：</span>
+      <input type="text" name="username" placeholder="用户名昵称" id="Username">
+    </div>
+    <div class="register-pa">
+      <span>密码：</span>
+      <input type="password" name="password" id="Password">
+    </div>
+    <div class="register-pas">
+      <span>确认密码：</span>
+      <input type="password" name="passwords" id="Passwords">
+    </div>
+    <div id="register" class="but1"><span>立即注册</span></div>
+    <div class="but2" id="login">已有帐号？<a href="login.html">登陆</a></div>
+    <div class="but3"><a href="service-agreement.html">*注册代表同意《美丽说网络服务使用协议》</a></div>
+  </div>
+  <div class="modal">
+    <span class="message1">请输入手机号！</span>
+    <span class="message2">密码不一致，请重试！</span>
+    <span class="message3">用户名已存在！</span>
+    <span class="message4">用户名可用！</span>
+    <span class="message5">注册成功！</span>
+    <span class="message6">密码长度在6到20位！</span>
+  </div>
+  <script src="js/jquery-3.2.1.js"></script>
+  <script src="js/common.js"></script>
+  <script type="text/javascript">
+    //当页面DOM结构加载完成之后执行
+    $(function(){
+      //添加检测用户名是否被用
+      var oUsername = document.getElementById('Username');
+      oUsername.addEventListener('blur',function(){
+        console.log( $(this).val() );
+        shop.api.checkUsernameUnique($(this).val(), function(response){
+          console.log(response);
+          if (response.code === 0) {//用户名可用
+            $('.modal')[0].style.display = 'block';
+            $('.modal .message4')[0].style.display = 'block';
+          } else if(response.code === 2001){//用户名已存在
+            $('.modal')[0].style.display = 'block';
+            $('.modal .message3')[0].style.display = 'block';
+          }
+        });
+        //modal定时器
+        var oModal = $('.modal')[0];
+        var timer = setInterval(function () {
+          oModal.style.display = 'none';
+          for (var i = 0; i < $('.modal span').length; i++){
+            $('.modal span')[i].style.display = 'none';
+          }
+        },4000)
+      });
+  
+      var oPassword = document.getElementById('Password');
+      var oPasswords = document.getElementById('Passwords');
+      oPasswords.addEventListener('blur',function(){
+        if($(this).val() != oPassword.value){
+          $('.modal')[0].style.display = 'block';
+          $('.modal .message2')[0].style.display = 'block';
+        }
+      });
+      
+      $('#login').click(function(){
+        location.assign('login.html');
+      });
+      //点击注册按钮
+      $('#register').click(function(){
+        //获得用户名和密码
+        var username = $('input[name="username"]').val();
+        var password = $('input[name="password"]').val();
+        //验证密码最小长度6位
+        if (password.length < 6 || password.length > 20) {
+          $('.modal')[0].style.display = 'block';
+          $('.modal .message6')[0].style.display = 'block';
+          return;
+        }
+        //验证密码是否一致
+        if(oPasswords.value != oPassword.value){
+          $('.modal')[0].style.display = 'block';
+          $('.modal .message2')[0].style.display = 'block';
+          return;
+        }
+        shop.api.register(username, password, function(response){
+          console.log(response);
+          $('.modal')[0].style.display = 'block';
+          $('.modal .message5')[0].style.display = 'block';
+          setTimeout(function () {
+            location.href = 'login.html';
+          },2000);
+        });
+      });
+    });
+  
+    
+    
+//    *:TODO
+    //表单验证，用户名，密码，并给出友好的提示
+   
+    //提交表单之后有两种情况：
+//        成功的时候给出注册成功的提示
+//        失败的时候把错误信息显示出来
+    //防止表单重复提交
+    //用户名是否可以被注册
+  </script>
+</body>
+</html>

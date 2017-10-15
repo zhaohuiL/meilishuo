@@ -1,0 +1,108 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+html,body{
+	width: 100%;
+
+}
+li{
+	list-style: none;
+}
+body{
+	font-size: 14px;
+	background-color: #eee;
+}
+header{
+	width: 100%;
+	height: 1.2rem;
+	position: relative;
+	overflow: hidden;
+	background: white;
+}
+header div{
+	text-align: center;
+}
+header img{
+	width: .2rem;
+}
+header div:nth-child(1){
+	float: left;
+	width: 10%;
+	line-height: 1.2rem;
+}
+header div:nth-child(2){
+	position: absolute;
+	width: 2rem;
+	font-size: .4rem;
+	line-height: 1.2rem;
+	left: 50%;
+	margin-left: -1rem;
+}
+section{
+	font-size: .33rem;
+	height: 3.3rem;
+	background: white;
+	margin-top: 3%;
+}
+section>div{
+	height: 3.3rem;
+	margin-left: 3%;
+}
+section>div>div{
+	height: 1.1rem;
+	border-bottom: 1px solid #EEEEEE;
+}
+.tupian{
+	width: .7rem;
+	height: .7rem;
+	float: left;
+	margin: .2rem;
+	background: url(../img/weixin.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+.tupian2{
+	background: url(../img/bao.png) no-repeat;
+	background-size: 100% 100%;
+}
+.tupian3{
+		background: url(../img/qianbao.png) no-repeat;
+		background-size: 100% 100%;
+}
+section>div>div>span:nth-child(2){
+	line-height: 1.1rem;
+}
+section>div>div>span:nth-child(3){
+	float: right;
+	width: .5rem;
+	height: .5rem;
+	border:1px solid #EEEEEE;
+	border-radius: 50%;
+	margin-right: 5%;
+	margin-top: .3rem;
+}
+footer{
+	font-size: .33rem;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	height: 1.3rem;
+	width: 100%;
+	background: white;
+}
+footer div:nth-child(1){
+	float: left;
+	width: 3.2rem;
+	text-align: center;
+	line-height: 1.3rem;
+}
+footer div:nth-child(2){
+	float: right;
+	line-height: .7rem;
+	width: 2.2rem;
+	height: .7rem;
+	background: rgb(255,141,179);
+	color: white;
+	text-align: center;
+	margin: .3rem .4rem;
+}

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>商品分类</title>
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/list.css">
+</head>
+<body>
+  <!--搜索功能-->
+  <div class="header">
+    <div class="search-box">
+      <a href="index.html" class="logo"></a>
+      <a href="search.html"><input class="search" type="text" placeholder="套装"></a>
+      <a href="#" class="message"></a>
+      <a href="index.html" class="cansel">取消</a>
+    </div>
+  </div>
+
+  <!--商品分类列表-->
+  <div class="cat-list">
+    <div class="cat-title">
+      本周流行
+    </div>
+    <ul id="nav-list" class="nav-list"></ul>
+    <script type="text/mingliang" id="nav-li-template">
+     <li class="item {className}">
+       <a href='list-detail.html?cat_id={cat_id}' title="{cat_name}">
+         <div class="cat-img"></div>
+         <b class="cat-word">{cat_name}</b>
+       </a>
+     </li>
+    </script>
+  </div>
+  <!--标题-->
+  <div class="title">
+    <div class="liuxing">
+      <span class="cur">流行</span>
+    </div>
+    <div class="rexiao">
+      <span>热销</span>
+    </div>
+    <div class="shangxin">
+      <span>上新</span>
+    </div>
+  </div>
+  <!--热门商品-->
+  <div class="hot-goods">
+    <ul class="shop" id="shop">
+    </ul>
+  </div>
+
+  <!--回到顶部-->
+  <div class="back-top" id="back-top">
+    <span>TOP</span>
+  </div>
+
+  <!--底部-->
+  <nav>
+    <ul>
+      <li>
+        <a href="index.html">
+          <i></i>
+          <span>首页</span>
+        </a>
+      </li>
+      <li>
+        <a href="list.html">
+          <i></i>
+          <span>分类</span>
+        </a>
+      </li>
+      <li>
+        <a href="cart.html">
+          <i></i>
+          <span>购物车</span>
+        </a>
+      </li>
+      <li>
+        <a href="me.html">
+          <i></i>
+          <span>我</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <script src="js/jquery-3.2.1.js" charset="utf-8"></script>
+  <script src="js/common.js" charset="utf-8"></script>
+  <script src="js/list.js" charset="utf-8"></script>
+</body>
+</html>

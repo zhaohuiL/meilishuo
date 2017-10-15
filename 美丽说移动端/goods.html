@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+  		<link rel="stylesheet" href="css/goods.css" />
+  		<script src="js/myajax.js" charset="utf-8"></script>
+		<title></title>
+	</head>
+	<body>
+	    <div id="shopList" class="shop-list">
+	      	<img id="goods_img" src="" />
+	      	<div id="shopListRight" class="shop-list-right">
+	          	<h1 id="goods_name"></h1>
+	          	<div class="shop-list-right-one">
+	              	<span>￥</span>
+	           	    <span id="goods_price"></span>
+       		   </div>
+	        </div>
+	        <div class="goods_desc" id="goods_desc"></div>
+	    </div>
+	    <div class="other1">
+	    	<span>销量：100</span>
+	    	<span>收藏：100人</span>
+	    	<span>随时发货</span>
+	    </div>
+	    <div class="other2">
+	    	<p><span></span>退货补运费</p>
+	    	<p><span></span>全国包邮</p>
+	    	<p><span></span>7天无理由退货</p>
+	    	<span></span>
+	    </div>
+	    <div class="benefit">
+	    	<p>优惠活动</p>
+	    	<div>
+	    		<span>
+	    			<p>10元</p>
+	    			<p>满100立减</p>
+	    		</span>
+	    		<span>
+	    			<p>90元</p>
+	    			<p>满900立减</p>
+	    		</span>
+	    	</div>
+	    </div>
+	    <div class="shop">
+	    	<div class="clear1">
+	    		<span></span>
+	    		<p>么么哒企业店</p>
+	    		<div>+收藏</div>
+	    	</div>
+	    	<div class="clear2">
+	    		<div>
+	    			<div class="left">
+	    				<p>25.2万</p>
+	    				<p>总销量</p>
+	    			</div>
+	    			<div class="right">
+	    				<p>113</p>
+	    				<p>全部宝贝</p>
+	    			</div>
+	    		</div>
+	    		<div>
+	    			<ul>
+	    				<li><p>描述相符</p><em>4.5</em><i>低</i></li>
+	    				<li><p>价格合理</p><em>5</em><i>高</i></li>
+	    				<li><p>质量满意</p><em>4</em><i>低</i></li>
+	    			</ul>
+	    		</div>
+	    	</div>
+	    	<div class="join">
+	    		<div>进店逛逛</div>
+	    	</div>
+	    </div>
+	    <div class="feet">
+	    	<div>
+	    		<div><a><span></span><p>客服</p></a></div>
+	    		<div><a><span></span><p>店铺</p></a></div>
+	    		<div><a><span></span><p>收藏</p></a></div>
+	    	</div>
+	    	<div>
+	    		<div id="showModel1"><a>加入购物车</a></div>
+	    		<div id="showModel2"><a>购买</a></div>
+	    	</div>
+	    </div>
+	    <div class="detail">
+	    	<div><a href="cart.html"></a></div>
+	    	<div class="totop"></div>
+	    </div>
+	    <div id="modal" class="modal">
+		    <div class="modal-content">
+		        <header class="modal-header">
+		        	<div id="modal-shoplist">
+				      	<div id="goodspic"></div>
+				    </div>
+		            <span class="close">╳</span>
+		        </header>
+		        <div class="modalbody">
+		            <p>颜色：</p>
+		            <div>
+		            	<span class="color">红色</span>
+		            	<span class="color">粉色</span>
+		            	<span class="color">蓝色</span>
+		            	<span class="color">紫色</span>
+		            </div>
+		            <p>尺码：</p>
+		            <div>
+		            	<span class="size">S</span>
+		            	<span class="size">M</span>
+		            	<span class="size">L</span>
+		            	<span class="size">XL</span>
+		            	<span class="size">2XL</span>
+		            	<span class="size">3XL</span>
+		            </div>
+		            <p>数量：</p>
+		            <div class="num">
+		            	<span class="jian" id="add">-</span>
+		            	<span class="num" id="add">0</span>
+		            	<span class="jia" id="add">+</span>
+		            </div>
+		        </div>
+		        <footer class="modal-footer">
+		            <div  class="cart" id="add-to-cart">确定</div>
+		        </footer>
+		    </div>
+		</div>
+		<div id="backbox"><img src="img/back.png" alt=""></div>
+		<script>
+			window.onresize = set;
+			set();
+			function set(){
+			  var windowWidth = document.documentElement.clientWidth;
+			  console.log(windowWidth);
+			  var fontsize = windowWidth / 26;
+			  document.documentElement.style.fontSize = fontsize + "px";
+			}
+
+		    var btn1 = document.getElementById('showModel1');
+		    var btn2 = document.getElementById('showModel2');
+		    var close = document.getElementsByClassName('close')[0];
+		    var modal = document.getElementById('modal');
+		    btn1.addEventListener('click', function(){
+		        modal.style.display = "block";
+		    });
+		    btn2.addEventListener('click', function(){
+		        modal.style.display = "block";
+		    });
+		    close.addEventListener('click', function(){
+		        modal.style.display = "none";
+		    });
+
+		    var goods_id = getQueryString('goods_id');
+		    var opic = document.querySelector("div[id=goodspic]")
+		    console.log(opic)
+			myajax.get('http://h6.duchengjiu.top/shop/api_goods.php', {
+			  goods_id
+			}, function(err, responseText){
+			  var json = JSON.parse(responseText);
+			  var obj = json.data[0];
+			  console.log(obj)
+			  opic.innerHTML = `
+			  <img src="${obj.goods_thumb}"/>
+			  <div>
+			  	<p>${obj.goods_name}</p>
+			  	<p>￥${obj.price}<span>库存10000件</span></p>
+			  	<p>请选择颜色 、尺码</p>
+			  </div>
+			  `
+			  });
+				var oBackbox = document.querySelector("#backbox");
+				oBackbox.addEventListener("touchend",function(){
+					location.href = "index.html";
+				})
+		</script>
+	    <script src="js/jquery-3.2.1.js" charset="utf-8"></script>
+	    <script src="js/common-goods.js" charset="utf-8"></script>
+	    <script src="js/goods.js" charset="utf-8"></script>
+	</body>
+</html>

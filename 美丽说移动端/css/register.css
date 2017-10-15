@@ -1,0 +1,113 @@
+html,body{
+  width: 100%;
+  height: 100%;
+  font-size: 12px;
+}
+.register-header{
+  width: 100%;
+  box-sizing: border-box;
+  padding:1.2rem;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  font-size: 1.4rem;
+}
+.register-header .back{
+  flex:1;
+  background: url("../img/idid_ie3wmnbvgftginzsmizdambqgayde_35x52.png") no-repeat left;
+}
+.register-header span{
+  flex:1;
+  text-align: center;
+}
+.register-header .idx{
+  flex:1;
+  text-align: right;
+}
+
+.register{
+  width: 100%;
+  padding:0 1rem;
+  box-sizing: border-box;
+}
+.register>div{
+  padding:1.2rem;
+  border-bottom:1px solid #ccc;
+  font-size: 1.4rem;
+  color: #4e4e4e;
+}
+.register div.area{
+  display: flex;
+}
+.register div.area span{
+  flex: 1;
+}
+.register div.area span:nth-child(2){
+  text-align:right;
+  color: black;
+}
+.register div.register-us{
+  display: flex;
+}
+.register div.register-us span:nth-child(1){
+  flex:2;
+  display: inline-block;
+  border-right: 1px solid #ccc;
+}
+.register div input{
+  flex:8;
+  outline: none;
+  border:none;
+  padding-left: 1.2rem;
+  font-size: 1.4rem;
+}
+.register div.but1{
+  border:none;
+}
+.register div.but1 span{
+  display: block;
+  width: 100%;
+  padding:1rem 0;
+  border-radius: 5px;
+  background-color: #ff5777;
+  color: #FFFFFF;
+  text-align: center;
+}
+.register div.but2{
+  border:none;
+  padding:0 1.2rem;
+  font-size: 1.4rem;
+  text-align: right;
+}
+.register div.but2 a{
+  color: deepskyblue;
+}
+.register div.but3{border:none;}
+.register div.but3 a{
+  padding:0 1.2rem;
+  color: #4e4e4e;
+  font-size: 1.4rem;
+  text-align: left;
+}
+
+div.modal{
+  position: fixed;
+  top:50%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
+  margin:1rem auto;
+  background-color: rgba(225,42,82,.7);
+  color: #FFFFFF;
+  font-size: 1.6rem;
+  display: none;
+  border-radius: 5px;
+}
+div.modal span{
+  width:100%;
+  padding: 1rem;
+  display: none;
+  text-align: center;
+}
+div.modal span.message4{
+  color: blue;
+}

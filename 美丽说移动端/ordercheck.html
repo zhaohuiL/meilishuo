@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!--<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">-->
+		<link rel="stylesheet" href="css/ordercheck.css" />
+		<title></title>
+	</head>
+
+	<body>
+		<header>
+			<div  id="order"><img  src="img/sword.png" /></div>
+			<div>订单确认</div>
+			<div id="orderlist">我的订单</div>
+		</header>
+		<section class="address">
+			<div><a href="address.html"></a></div>
+		</section>
+		<section class="things">
+			<ul class="addthings">
+				<li class="li1">
+					<div class="store_name1"></div>
+					<div class="store_name2">美丽优选</div>
+					<div class="store_name3">联系卖家</div>
+				</li>
+			</ul>
+			<div>
+				<span>配送方式：</span>
+				<span>全国包邮</span>
+			</div>
+			<div>
+				<span>快递运费：</span>
+				<span>0</span>
+			</div>
+			<div class="all-price">
+				<span>价格合计：</span>
+				<span class="hhh"></span>
+			</div>
+			<div class="kuang">
+				<input placeholder="给卖家留言" />
+			</div>
+		</section>
+		<section class="gotopay">
+			<p>
+				<img src="img/gang.png" />
+			</p>
+			<div class="all-price">
+				<span id="money">应付款：</span>
+				<span id="gotoorder">提交订单</span>
+			</div>
+		</section>
+	</body>
+	<script src="js/jquery-1.12.3.min.js"></script>
+	<script>
+	window.onresize = set;
+	set();
+	function set(){
+		var windowWidth = document.documentElement.clientWidth;
+		// console.log(windowWidth);
+		var fontsize = windowWidth / 8;
+		document.documentElement.style.fontSize = fontsize + "px";
+	}
+	</script>
+	<script>
+	if(!localStorage.oClickNum){
+		localStorage.oClickNum = 0;
+	}
+		$.get("http://h6.duchengjiu.top/shop/api_useraddress.php?token="+localStorage.token, {}, function(json) {
+			console.log(json);
+			console.log(typeof json);
+			var data = json.data;
+
+			var obj = data[Number(localStorage.oClickNum) + 1];
+			//是每一次都添加元素到页面上性能好还是组装好所有的内容之后一次性插入性能好
+			//每次都添加，页面会渲染多次
+			var oAddress = document.querySelector('.address');
+			console.log(oAddress);
+			oAddress.innerHTML +=
+				`<ul>
+	      	<li>收件人 :  ${obj.consignee} &nbsp;&nbsp;&nbsp;&nbsp; ${obj.mobile}</li>
+	      	<li>地址 :  ${obj.address_name}</li>
+	      </ul>`
+		});
+	</script>
+
+	<script>
+		//获取中间图片等各种信息
+		$.get("http://h6.duchengjiu.top/shop/api_cart.php?token="+localStorage.token, {}, function(json) {
+			var data = json.data;
+			var oAddthings = document.querySelector('.addthings');
+			console.log(oAddthings);
+			console.log(json)
+			sum = 0;
+			for(var i = data.length - 1; i >= 0; i--) {
+				var obj = data[i];
+				sum += obj.goods_price*obj.goods_number;
+				oAddthings.innerHTML +=
+					`
+						<li>
+							<img src='${obj.goods_thumb}'/>
+							<div class="lei">
+								<span>${obj.goods_name}</span>
+								<span>单价 : ${obj.goods_price}</span>
+								<span>x${obj.goods_number}</span>
+							</div>
+						</li>
+				`
+			}
+			var oHHH = document.querySelector('.hhh');
+			oHHH.innerHTML = '¥'+sum;
+			var oMoney= document.querySelector('#money');
+			oMoney.innerHTML += '¥'+sum;
+			localStorage.sum = sum;
+		})
+	</script>
+	<script>
+		var oPrice = document.querySelectorAll('.all_price');
+		var oAddth = document.querySelectorAll('.addthings');
+
+
+	</script>
+	<script>
+		$.get("http://h6.duchengjiu.top/shop/api_useraddress.php?token="+localStorage.token, {}, function(json) {
+
+			var data = json.data;
+			var obj = data[data.length - 1];
+			var oGoto = document.querySelector('#gotoorder');
+			var oAddressId = obj.address_id;
+			var oMoney= document.querySelector('#money');
+			var oTotalPrices = sum;
+			oGoto.addEventListener('touchend',function(){
+			$.post('http://h6.duchengjiu.top/shop/api_order.php?token='+localStorage.token+'&status=add&debug=1',{address_id:oAddressId,total_prices:oTotalPrices},function(){
+				location.href = 'orderlist.html'
+			})
+
+		})
+		});
+		var oOrderlist = document.querySelector('#orderlist');
+		oOrderlist.addEventListener("touchstart",function(){
+			location.href = 'me.html'
+		})
+		var oOrder = document.querySelector('#order');
+		oOrder.addEventListener("touchstart",function(){
+			location.href = 'goods.html';
+		})
+	</script>
+	<script>
+		//localStorage.sum = sum
+	</script>
+</html>
